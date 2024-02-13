@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 /foodmash
+=======
+/Pipfile
+/Pipfile.lock
+/credentials.json
+/foodmash-412423-3d34ef97703f.json
+/foodscraper.py
+/gsheets.py
+/test.py
+>>>>>>> 7ce8b29 (added google sheets integration)
