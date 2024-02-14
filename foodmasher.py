@@ -63,7 +63,7 @@ names_list = [
 #Creating a results list for the food selections
 results_list = []
 
-for i in range(7):
+for i in range(8):
     
     # Navigate to the dining.columbia.edu website
     driver.get(websites_list[i])
