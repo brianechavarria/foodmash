@@ -30,34 +30,33 @@ urls = ["https://dining.columbia.edu/content/john-jay-dining-hall"]
 service = Service()
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=options)
-driver.get("https://dining.columbia.edu/content/ferris-booth-commons-0")
+driver.get("https://dining.columbia.edu/chef-mikes")
 driver.implicitly_wait(10)
 menu = driver.find_element("xpath", '//*[@id="cu-dining-meals"]/div/div')
 
 base_xpath = '//*[@id="cu-dining-meals"]/div/div/div['
-for i in range(1,5):
+for i in range(1,30):
         section_xpath = base_xpath + str(i) + ']/div/div/div['
 
-        for j in range(1,8):
+        for j in range(1,15):
                 try:
                         xpath = section_xpath + str(j) + ']'
                         item = menu.find_element("xpath", xpath)
                         name = item.find_element("xpath", xpath + '/h5').text
 
                         print(name)
-
-                except NoSuchElementException:
-                        break
-
-                try:
-                        special = item.find_element("xpath", xpath + '/div[1]/strong').text
+                        food_restrictions = item.find_element("xpath", xpath + '/div[1]/strong').text
                         
-                        print(special)
+                        print(food_restrictions)
+                        allergens = item.find_element("xpath", xpath + '/div[2]/em').text
+                        
+                        print(allergens)
                 
-                except NoSuchElementException:
+
+                except (AttributeError, NoSuchElementException):
                         break
 
-#test
+
 
 
 
