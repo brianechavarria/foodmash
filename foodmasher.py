@@ -80,7 +80,7 @@ for i in range(8):
 
     # Put all of the food values in a list
     for e in elements:
-        sheet_instance.append_rows(values=[[str(date.today()), names_list[i], e]])
+        sheet_instance.append_rows(values=[[str(date.today()), names_list[i], e.text]])
         
 
     # Append values to the Google Sheet
