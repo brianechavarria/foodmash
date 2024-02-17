@@ -60,9 +60,6 @@ names_list = [
     'Fac Shack'
 ]
 
-#Creating a results list for the food selections
-#results_list = []
-
 for i in range(8):
     
     # Navigate to the dining.columbia.edu website
@@ -74,20 +71,10 @@ for i in range(8):
     # Find all elements with class 'h5'
     elements = driver.find_elements(By.TAG_NAME, "h5")
 
-    # Adding Dining Hall name and today's date to the list
-    # results_list.append(names_list[i])
-    # results_list.append(str(date.today()))
-
     # Put all of the food values in a list
     for e in elements:
         sheet_instance.append_rows(values=[[str(date.today()), names_list[i], e.text]])
         
-
-    # Append values to the Google Sheet
-   #sheet_instance.append_rows(values=[results_list])
-
-    # Clear the list for the next iteration
-    #results_list = []
 
 # Close the browser window
 driver.quit()
