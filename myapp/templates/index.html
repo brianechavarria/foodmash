@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Comparison</title>
+</head>
+<body>
+    <h1>Choose the better image</h1>
+    <form action="{{ url_for('vote') }}" method="post">
+        <img src="{{ url_for('static', filename='images/' + image1) }}" width="200" height="200">
+        <span>vs</span>
+        <img src="{{ url_for('static', filename='images/' + image2) }}" width="200" height="200">
+        <br>
+        <button type="submit" name="winner" value="{{ image1 }}" onclick="setLoser('{{ image2 }}')">Image 1</button>
+        <button type="submit" name="winner" value="{{ image2 }}"onclick="setLoser('{{ image1 }}')">Image 2</button>
+        <input type="hidden" name="loser" id="loserInput" value="">
+        
+    </form>
+    <script>
+        function setLoser(loserValue) {
+            document.getElementById('loserInput').value = loserValue;ß
+        }
+    </script>
+</body>
+</html>
