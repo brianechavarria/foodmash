@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 /foodmash
-=======
 /Pipfile
 /Pipfile.lock
 /credentials.json
@@ -8,5 +6,7 @@
 /foodscraper.py
 /gsheets.py
 /test.py
->>>>>>> 7ce8b29 (added google sheets integration)
-.DS_Store
+.env
+credentials2.json
+glossy*.json
+.venv.DS_Store
