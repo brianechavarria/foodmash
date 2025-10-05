@@ -3,11 +3,20 @@ import os
 
 app = Flask(__name__)
 
+
+# Import images and share file directories
 # Change this to your image directory 
 # We're going to want to make this a labeled database of images with an elo value a name and a 
 IMAGE_DIR = 'static/images'
 images = [img for img in os.listdir(IMAGE_DIR)]
 #for img in os.listdir(IMAGE_DIR) if img.endswith(".jpg"):
+
+class FoodItems:
+    name: str
+    rating: float = 1200.0
+    wins: int = 0
+    losses: int = 0
+    matches: int = 0
 
 
 @app.route('/')
