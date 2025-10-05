@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
+import math
 
 app = Flask(__name__)
 
@@ -11,12 +12,29 @@ IMAGE_DIR = 'static/images'
 images = [img for img in os.listdir(IMAGE_DIR)]
 #for img in os.listdir(IMAGE_DIR) if img.endswith(".jpg"):
 
+#define class for the food items
 class FoodItems:
     name: str
     rating: float = 1200.0
     wins: int = 0
     losses: int = 0
     matches: int = 0
+
+    #define class specific function to update rating when you vote for each item
+    def elo_calc(self, other: "FoodItems", did_win: bool) -> None:
+        k = 30
+        win_prob = 1 / (1 + math.pow(10, 1 * (other.rating - self.rating) / 400))
+        delta = k * (did_win - win_prob)
+        self.rating += delta
+        self.matches += 1
+        if did_win:
+            self.wins += 1
+        else:
+            self.losses += 1
+
+
+        
+
 
 
 @app.route('/')
