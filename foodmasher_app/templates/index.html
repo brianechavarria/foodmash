@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Choose the better image</h1>
-    <form action="{{ url_for('vote') }}" method="post">
-        <img src="{{ url_for('static', filename='images/' + image1) }}" width="200" height="200">
-        <span>vs</span>
-        <img src="{{ url_for('static', filename='images/' + image2) }}" width="200" height="200">
-        <br>
-        <button type="submit" name="winner" value="{{ image1 }}" onclick="setLoser('{{ image2 }}')">Image 1</button>
-        <button type="submit" name="winner" value="{{ image2 }}"onclick="setLoser('{{ image1 }}')">Image 2</button>
-        <input type="hidden" name="loser" id="loserInput" value="">
-        
+    <form action="{{ url_for('vote.vote') }}" method="post">
+        <div class="images-container">
+            <div>
+                <img
+                    src="{{ url_for('static', filename='images/' + image1) }}"
+                    alt="Image 1"
+                    onclick="selectWinner('{{ image1 }}', '{{ image2 }}')"
+                />
+                <div class="elo-display">ELO: {{ elo1 }}</div>
+            </div>
+            <span>vs</span>
+            <div>
+                <img
+                    src="{{ url_for('static', filename='images/' + image2) }}"
+                    alt="Image 2"
+                    onclick="selectWinner('{{ image2 }}', '{{ image1 }}')"
+                />
+                <div class="elo-display">ELO: {{ elo2 }}</div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button type="submit" name="winner" value="{{ image1 }}" onclick="setLoser('{{ image2 }}')">Image 1</button>
+            <button type="submit" name="winner" value="{{ image2 }}" onclick="setLoser('{{ image1 }}')">Image 2</button>
+        </div>
+        <input type="hidden" name="loser" id="loserInput" value="" />
     </form>
     <script>
         function setLoser(loserValue) {
-            document.getElementById('loserInput').value = loserValue;ß
+            document.getElementById('loserInput').value = loserValue;
+        }
+        function selectWinner(winner, loser) {
+            document.querySelector('button[name="winner"][value="' + winner + '"]').click();
+            setLoser(loser);
         }
     </script>
 </body>

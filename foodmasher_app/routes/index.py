@@ -1,19 +1,24 @@
-from flask import Blueprint, render_template
-import os
+from flask import Blueprint, render_template, session, redirect, url_for
+import random
+from models.db import food_db, init_images
 
 index_bp = Blueprint('index', __name__)
-
 IMAGE_DIR = 'static/images'
-
-# You might choose a better way to load images in real use (to avoid running out)
-def get_images():
-    return [img for img in os.listdir(IMAGE_DIR)]
 
 @index_bp.route('/')
 def index():
-    images = get_images()
-    if len(images) < 2:
+    names = list(food_db.keys())
+    if len(names) < 2:
         return "Not enough images in the directory."
-    image1 = images.pop()
-    image2 = images.pop()
-    return render_template('index.html', image1=image1, image2=image2)
+    image1, image2 = random.sample(names, 2)
+    session['current_pair'] = (image1, image2)
+    elo1 = food_db[image1].rating
+    elo2 = food_db[image2].rating
+    return render_template(
+        'index.html',
+        image1=image1,
+        image2=image2,
+        elo1=round(elo1),
+        elo2=round(elo2)
+    )
+
